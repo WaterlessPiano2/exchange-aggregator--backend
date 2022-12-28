@@ -1,10 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { now, HydratedDocument, ObjectId } from 'mongoose';
+import { now, HydratedDocument } from 'mongoose';
 
 export type ExchangeDocument = HydratedDocument<Exchange>;
 
 @Schema()
 export class Exchange {
+  @Prop({ unique: true, required: true })
+  id: number;
   @Prop()
   name: string;
   @Prop()

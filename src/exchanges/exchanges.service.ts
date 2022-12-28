@@ -11,19 +11,33 @@ export class ExchangesService {
     @InjectModel(Exchange.name) private exchangeModel: Model<ExchangeDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
-  async createExchanges(dto: ExchangesDto, req) {
+  async createExchanges(dto: ExchangesDto[], req) {
     const user = await this.userModel.findOne({ email: req.user.email });
 
-    const newExchange = new this.exchangeModel({
-      name: dto.name,
-      description: dto.description,
-      webpage: dto.webpage,
-      address: dto.address,
-      orderBooksURL: dto.orderBooksURL,
-      symbolsURL: dto.symbolsURL,
-      isReadyForAggregation: dto.isReadyForAggregation,
-      createBy: user._id,
+    const mappedExchanges = dto.map((exchange) => {
+      return {
+        id: exchange.id,
+        name: exchange.name,
+        description: exchange.description,
+        webpage: exchange.webpage,
+        address: exchange.address,
+        orderBooksURL: exchange.orderBooksURL,
+        symbolsURL: exchange.symbolsURL,
+        isReadyForAggregation: exchange.isReadyForAggregation,
+        createBy: user._id,
+      };
     });
-    return newExchange.save();
+
+    const bulkUpdateOps = mappedExchanges.map(function (doc) {
+      return {
+        updateOne: {
+          filter: { id: doc.id },
+          update: { $set: doc },
+          upsert: true,
+        },
+      };
+    });
+
+    return this.exchangeModel.bulkWrite(bulkUpdateOps);
   }
 }

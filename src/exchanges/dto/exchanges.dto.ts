@@ -1,4 +1,5 @@
 export class ExchangesDto {
+  id: number;
   name: string;
   description: string;
   webpage: string;
