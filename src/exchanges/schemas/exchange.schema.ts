@@ -18,13 +18,13 @@ export class Exchange {
   @Prop()
   symbolsURL: string;
   @Prop({ default: now() })
-  createdAt: Date;
+  createdAt: string;
   @Prop({ default: now() })
-  updatedAt: Date;
+  updatedAt: string;
   @Prop()
-  createBy: ObjectId;
+  createBy: string;
   @Prop()
-  lastUpdatedBy: ObjectId;
+  lastUpdatedBy: string;
   @Prop({ default: false })
   isReadyForAggregation: boolean;
 }
