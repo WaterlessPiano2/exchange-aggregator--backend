@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ExchangesService {}
+export class ExchangesService {
+  createExchange() {
+    return 'create exchage';
+  }
+}
