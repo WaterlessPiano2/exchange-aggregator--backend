@@ -19,7 +19,7 @@ export class Exchange {
   symbolsURL: string;
   @Prop({ default: now() })
   createdAt: string;
-  @Prop({ default: now() })
+  @Prop()
   updatedAt: string;
   @Prop()
   createBy: string;
