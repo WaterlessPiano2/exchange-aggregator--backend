@@ -9,9 +9,11 @@ import { User, UserDocument } from 'src/auth/schemas/user.schema';
 export class ExchangesService {
   constructor(
     @InjectModel(Exchange.name) private exchangeModel: Model<ExchangeDocument>,
-  //  @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
-  createExchanges(dto: ExchangesDto) {
+  async createExchanges(dto: ExchangesDto, req) {
+    const user = await this.userModel.findOne({ email: req.user.email });
+
     const newExchange = new this.exchangeModel({
       name: dto.name,
       description: dto.description,
@@ -20,7 +22,7 @@ export class ExchangesService {
       orderBooksURL: dto.orderBooksURL,
       symbolsURL: dto.symbolsURL,
       isReadyForAggregation: dto.isReadyForAggregation,
-      // createBy:this.userModel.
+      createBy: user._id,
     });
     return newExchange.save();
   }

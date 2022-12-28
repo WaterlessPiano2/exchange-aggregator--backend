@@ -9,7 +9,7 @@ import { User, UserSchema } from 'src/auth/schemas/user.schema';
   imports: [
     MongooseModule.forFeature([
       { name: Exchange.name, schema: ExchangeSchema },
-      //   { name: User.name, schema: UserSchema },
+      { name: User.name, schema: UserSchema },
     ]),
   ],
   providers: [ExchangesService],
