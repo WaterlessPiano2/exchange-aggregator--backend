@@ -2,8 +2,8 @@ import { Exchange, ExchangeDocument } from './schemas/exchange.schema';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ExchangesDto } from './dto/exchanges.dto';
 import { User, UserDocument } from 'src/auth/schemas/user.schema';
+import { parseCSV } from './utils/csv';
 
 @Injectable()
 export class ExchangesService {
@@ -11,10 +11,12 @@ export class ExchangesService {
     @InjectModel(Exchange.name) private exchangeModel: Model<ExchangeDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
-  async createExchanges(dto: ExchangesDto[], req) {
-    const user = await this.userModel.findOne({ email: req.user.email });
 
-    const mappedExchanges = dto.map((exchange) => {
+  async createExchanges(req) {
+    //TODO: Error handling
+    const user = await this.userModel.findOne({ email: req?.user?.email });
+
+    const mappedExchanges = parseCSV().map((exchange) => {
       return {
         id: exchange.id,
         name: exchange.name,
@@ -38,6 +40,7 @@ export class ExchangesService {
       };
     });
 
+    //TODO: Error handling
     return this.exchangeModel.bulkWrite(bulkUpdateOps);
   }
 }
