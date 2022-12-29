@@ -1,4 +1,4 @@
-import { ExchangesService } from './exchanges.service';
+import { ExchangeService } from './exchange.service';
 import {
   Controller,
   Put,
@@ -16,9 +16,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { csvFileName, csvFileFilter, deleteCsvFile } from './utils/csv';
 
-@Controller('exchanges')
-export class ExchangesController {
-  constructor(private exchangeService: ExchangesService) {}
+@Controller('exchange')
+export class ExchangeController {
+  constructor(private exchangeService: ExchangeService) {}
   @UseGuards(AuthGuard('jwt'))
   @Put()
   @UseInterceptors(
@@ -31,7 +31,7 @@ export class ExchangesController {
     }),
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File, @Request() req) {
-    const result = await this.exchangeService.createExchanges(req);
+    const result = await this.exchangeService.createExchange(req);
     deleteCsvFile();
     return result;
     //TODO: make a propper response

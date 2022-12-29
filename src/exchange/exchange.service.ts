@@ -6,17 +6,17 @@ import { User, UserDocument } from 'src/auth/schemas/user.schema';
 import { parseCSV } from './utils/csv';
 
 @Injectable()
-export class ExchangesService {
+export class ExchangeService {
   constructor(
     @InjectModel(Exchange.name) private exchangeModel: Model<ExchangeDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
-  async createExchanges(req) {
+  async createExchange(req) {
     //TODO: Error handling
     const user = await this.userModel.findOne({ email: req?.user?.email });
 
-    const mappedExchanges = parseCSV().map((exchange) => {
+    const mappedExchange = parseCSV().map((exchange) => {
       return {
         id: exchange.id,
         name: exchange.name,
@@ -30,7 +30,7 @@ export class ExchangesService {
       };
     });
 
-    const bulkUpdateOps = mappedExchanges.map(function (doc) {
+    const bulkUpdateOps = mappedExchange.map(function (doc) {
       return {
         updateOne: {
           filter: { id: doc.id },

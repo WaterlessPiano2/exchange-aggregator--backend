@@ -1,7 +1,7 @@
 import { Exchange, ExchangeSchema } from './schemas/exchange.schema';
 import { Module } from '@nestjs/common';
-import { ExchangesService } from './exchanges.service';
-import { ExchangesController } from './exchanges.controller';
+import { ExchangeService } from './exchange.service';
+import { ExchangeController } from './exchange.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/auth/schemas/user.schema';
 
@@ -17,7 +17,7 @@ import { MulterModule } from '@nestjs/platform-express';
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  providers: [ExchangesService],
-  controllers: [ExchangesController],
+  providers: [ExchangeService],
+  controllers: [ExchangeController],
 })
-export class ExchangesModule {}
+export class ExchangeModule {}
