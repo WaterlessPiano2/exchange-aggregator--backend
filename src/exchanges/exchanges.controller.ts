@@ -1,4 +1,3 @@
-import { ExchangesDto } from './dto/exchanges.dto';
 import { ExchangesService } from './exchanges.service';
 import {
   Controller,
@@ -9,6 +8,8 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -34,5 +35,11 @@ export class ExchangesController {
     deleteCsvFile();
     return result;
     //TODO: make a propper response
+  }
+
+  @Get(':name/metadata')
+  async getExchange(@Param('name') name: string) {
+    const exchange = await this.exchangeService.getExchange(name);
+    return exchange;
   }
 }

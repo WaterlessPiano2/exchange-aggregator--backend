@@ -43,4 +43,8 @@ export class ExchangesService {
     //TODO: Error handling
     return this.exchangeModel.bulkWrite(bulkUpdateOps);
   }
+
+  async getExchange(name: string) {
+    return this.exchangeModel.findOne({ name });
+  }
 }
