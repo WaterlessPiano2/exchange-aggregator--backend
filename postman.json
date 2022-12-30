@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "fe504970-05a6-45a5-a0db-834de296905e",
+		"name": "nestPOC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21757121"
+	},
+	"item": [
+		{
+			"name": "REGISTER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"hello@world.com\",\n    \"password\":\"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "email@123.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HELLO WORLD",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGJsb2NrY2hhaW4uY29tIiwiaWF0IjoxNjcyMTc4MzY0LCJleHAiOjE2NzIxNzk1NjR9.ecYccCnRrZnPP-78ZhzvxRlg6nKafgFSJL8ErybEDRQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"hello@world.com\",\n    \"password\":\"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "hello1@blockchain.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create single exchange csv",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGJsb2NrY2hhaW4uY29tIiwiaWF0IjoxNjcyNDE1MjY3LCJleHAiOjE2NzQxNDMyNjd9.vqPsxbidVsxW1-KepKfVsuJKu1mcDRI5nDXkaIb5lz4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/mosolahnah/Desktop/exchanges.csv"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/mosolahnah/Desktop/exchangeWmissingData.csv",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3001/exchange/222/metadata",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"exchange",
+						"222",
+						"metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create multiple exchanges",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQGJsb2NrY2hhaW4uY29tIiwiaWF0IjoxNjcyMzIwNTc5LCJleHAiOjE2NzQwNDg1Nzl9.keuCq2ddu99hYzOT8fM6upQZ-XG8KyHnQ4qxYxhDzGs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/mosolahnah/Desktop/exchanges.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/exchange/bulk-upload",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"exchange",
+						"bulk-upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
