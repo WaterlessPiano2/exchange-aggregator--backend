@@ -6,8 +6,6 @@ export type ExchangeDocument = HydratedDocument<Exchange>;
 @Schema()
 export class Exchange {
   @Prop({ unique: true, required: true })
-  id: number;
-  @Prop()
   name: string;
   @Prop()
   description: string;

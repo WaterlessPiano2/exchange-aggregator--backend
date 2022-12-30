@@ -24,7 +24,6 @@ export const deleteCsvFile = async () => {
 
 export const getCSVFile = () => {
   //TODO> Make sure this works when deployed too, the route may change, on the built version
-  console.log(__dirname);
   const filePath = join(__dirname, '..', '..', '..', 'uploads/csv', 'data.csv');
   return filePath;
 };

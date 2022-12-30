@@ -12,13 +12,12 @@ export class ExchangeService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
-  async createExchange(req) {
+  async updateOrInsertMultipleExchangesByName(req) {
     //TODO: Error handling
     const user = await this.userModel.findOne({ email: req?.user?.email });
 
     const mappedExchange = parseCSV().map((exchange) => {
       return {
-        id: exchange.id,
         name: exchange.name,
         description: exchange.description,
         webpage: exchange.webpage,
@@ -33,7 +32,7 @@ export class ExchangeService {
     const bulkUpdateOps = mappedExchange.map(function (doc) {
       return {
         updateOne: {
-          filter: { id: doc.id },
+          filter: { name: doc.name },
           update: { $set: doc },
           upsert: true,
         },
@@ -42,6 +41,27 @@ export class ExchangeService {
 
     //TODO: Error handling
     return this.exchangeModel.bulkWrite(bulkUpdateOps);
+  }
+
+  async updateOrInsertAnExchangeByName(name, req) {
+    //TODO: Error handling
+    const user = await this.userModel.findOne({ email: req?.user?.email });
+    const exchange = { ...parseCSV()[0] };
+    const mappedExchange = {
+      description: exchange.description,
+      webpage: exchange.webpage,
+      address: exchange.address,
+      orderBooksURL: exchange.orderBooksURL,
+      symbolsURL: exchange.symbolsURL,
+      isReadyForAggregation: !!exchange.isReadyForAggregation,
+      createBy: user._id,
+    };
+    //TODO: Error handling
+    return this.exchangeModel.updateOne(
+      { name: name },
+      { $set: mappedExchange },
+      { upsert: true },
+    );
   }
 
   async getExchange(name: string) {

@@ -2,10 +2,8 @@ import { ExchangeService } from './exchange.service';
 import {
   Controller,
   Put,
-  Body,
   UseGuards,
   Request,
-  Post,
   UploadedFile,
   UseInterceptors,
   Get,
@@ -20,7 +18,7 @@ import { csvFileName, csvFileFilter, deleteCsvFile } from './utils/csv';
 export class ExchangeController {
   constructor(private exchangeService: ExchangeService) {}
   @UseGuards(AuthGuard('jwt'))
-  @Put()
+  @Put('bulk-upload')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -30,8 +28,37 @@ export class ExchangeController {
       fileFilter: csvFileFilter,
     }),
   )
-  async uploadFile(@UploadedFile() file: Express.Multer.File, @Request() req) {
-    const result = await this.exchangeService.createExchange(req);
+  async saveMultipleExchanges(
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+  ) {
+    const result =
+      await this.exchangeService.updateOrInsertMultipleExchangesByName(req);
+    deleteCsvFile();
+    return result;
+    //TODO: make a propper response
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Put(':name/metadata')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/csv',
+        filename: csvFileName,
+      }),
+      fileFilter: csvFileFilter,
+    }),
+  )
+  async saveASingleExchange(
+    @Param('name') name: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Request() req,
+  ) {
+    const result = await this.exchangeService.updateOrInsertAnExchangeByName(
+      name,
+      req,
+    );
     deleteCsvFile();
     return result;
     //TODO: make a propper response
