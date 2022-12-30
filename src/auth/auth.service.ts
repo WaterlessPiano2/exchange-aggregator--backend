@@ -19,6 +19,7 @@ export class AuthService {
       password: saltedHashedPassword,
     });
     const user = await newUser.save();
+    //Todo: Add error for db errors (duplicate email, no email, no password.)
     return this.createToken(user.email);
   }
 
