@@ -17,11 +17,9 @@ RUN npm run build
 
 FROM node:18-alpine  
 
-ENV NODE_ENV=production
-
 WORKDIR /usr/src/app
 
-COPY --from=build /usr/src/app/dist .dist
+COPY --from=build /usr/src/app/dist ./dist
 
 COPY package*.json ./
 
@@ -31,4 +29,4 @@ RUN rm package*.json
 
 EXPOSE 3000
 
-CMD ['node', 'dist/main.js']
+CMD ["node", "dist/main.js"]

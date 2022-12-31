@@ -8,7 +8,6 @@ services:
       - PORT=3000
       - JWT_SECRET=hidden_secret
       - MONGO_URI=mongodb://mongo_db/NestDB
-
     ports:
       - "3000:3000"
     depends_on:
