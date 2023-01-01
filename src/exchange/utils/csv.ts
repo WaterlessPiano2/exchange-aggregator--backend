@@ -23,8 +23,15 @@ export const deleteCsvFile = async () => {
 };
 
 export const getCSVFile = () => {
-  //TODO> Make sure this works when deployed too, the route may change, on the built version
-  const filePath = join(__dirname, '..', '..', '..', 'uploads/csv', 'data.csv');
+  const filePath = join(
+    __dirname,
+    '..',
+    '..',
+    '..',
+    '..',
+    'uploads/csv',
+    'data.csv',
+  );
   return filePath;
 };
 
@@ -32,7 +39,6 @@ export const parseCSV = () => {
   //TODO: Error handling
   const csvPath = getCSVFile();
   const stream = readFileSync(csvPath);
-
   const entities = parse(stream.toString(), {
     header: true,
     skipEmptyLines: true,
