@@ -11,8 +11,9 @@ $ npm install
 
 ## Running the app
 
-Remove .example, from te end of the .env.example file name.
-Install then start Mongo DB, by following the official documentation.
+Remove .example part, from the end of the .env.example file name.
+Install then start Mongo DB, by following the official documentation here
+https://www.mongodb.com/docs/manual/administration/install-community/
 
 ```bash
 # development
@@ -24,6 +25,15 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+
+
+## Running the app in Docker
+
+```bash
+docker compose up
+```
+
 
 ## Test
 
