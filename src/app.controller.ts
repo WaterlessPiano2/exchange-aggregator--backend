@@ -8,8 +8,7 @@ export class AppController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  getHello(@Request() req): string {
-    console.log(req.user.email);
+  getHello(): string {
     return this.appService.getHello();
   }
 }
